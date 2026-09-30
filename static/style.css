@@ -1,0 +1,656 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+/* =========================================================
+   Aelyra – Onyx / Lime Moss theme, centred "assistant" layout
+   --onyx      #0D0A0B   page background
+   --charcoal  #454955   assistant bubbles
+   --mist      #F3EFF5   text
+   --lime      #72B01D   primary accent
+   --green     #3F7D20   secondary accent
+   ========================================================= */
+
+:root {
+    --onyx: #0d0a0b;
+    --charcoal: #454955;
+    --mist: #f3eff5;
+    --lime: #72b01d;
+    --green: #3f7d20;
+
+    --surface: #171a20;
+    --surface-2: #20242c;
+    --line: rgba(243, 239, 245, 0.12);
+    --muted: #a3a6b3;
+
+    --font: "Manrope", "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--mist);
+    background-color: var(--onyx);
+    background-image:
+        radial-gradient(ellipse 55% 45% at 50% 30%, rgba(114, 176, 29, 0.14), transparent 70%),
+        radial-gradient(ellipse 40% 30% at 0% 100%, rgba(69, 73, 85, 0.35), transparent 70%);
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0 auto;
+}
+
+.header {
+    display: none;
+}
+
+.chat {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 32px 24px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--charcoal) transparent;
+}
+
+.chat::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background: var(--charcoal);
+    border-radius: 8px;
+}
+
+.chat:has(.welcome:only-child) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 6vh;
+}
+
+.welcome {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.welcome p {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.welcome:not(:only-child) {
+    margin: 0 auto 30px;
+}
+
+.welcome:not(:only-child) .jarvis-circle {
+    --blur: 9px;
+    width: 68px;
+    height: 68px;
+    margin-bottom: 14px;
+    box-shadow: 0 0 34px rgba(114, 176, 29, 0.4);
+}
+
+.welcome:not(:only-child) h2 {
+    font-size: 20px;
+}
+
+.welcome:not(:only-child) p {
+    display: none;
+}
+
+.jarvis-circle {
+    --blur: 18px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: block;
+    border-radius: 50%;
+    width: clamp(130px, 24vw, 170px);
+    height: clamp(130px, 24vw, 170px);
+    margin: 0 auto 34px;
+    font-size: 0;
+    color: transparent;
+    text-indent: -9999px;
+    background: radial-gradient(circle at 50% 50%, #1a2310 0%, var(--onyx) 100%);
+    box-shadow:
+        0 0 70px rgba(114, 176, 29, 0.40),
+        0 0 140px rgba(63, 125, 32, 0.22);
+    animation: orb-breathe 4.5s ease-in-out infinite;
+}
+
+.jarvis-circle::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    background-image:
+        radial-gradient(closest-side, var(--lime), transparent),
+        radial-gradient(closest-side, var(--green), transparent),
+        radial-gradient(closest-side, var(--mist), transparent),
+        radial-gradient(closest-side, var(--lime), transparent),
+        radial-gradient(closest-side, var(--charcoal), transparent);
+    background-size: 58% 58%, 64% 64%, 30% 30%, 42% 42%, 50% 50%;
+    background-repeat: no-repeat;
+    background-position: 10% 20%, 85% 30%, 55% 70%, 20% 90%, 70% 85%;
+    filter: blur(var(--blur));
+    animation:
+        orb-flow 5s ease-in-out infinite alternate,
+        orb-spin 14s linear infinite;
+}
+
+.jarvis-circle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 18%, rgba(243, 239, 245, 0.30), transparent 30%);
+    box-shadow:
+        inset 0 0 0 1px rgba(243, 239, 245, 0.20),
+        inset 0 -12px 28px rgba(13, 10, 11, 0.5);
+}
+
+@keyframes orb-flow {
+    0%   { background-position: 10% 20%, 85% 30%, 55% 70%, 20% 90%, 70% 85%; }
+    50%  { background-position: 70% 80%, 20% 70%, 30% 20%, 90% 40%, 15% 15%; }
+    100% { background-position: 40% 10%, 60% 95%, 90% 60%, 10% 30%, 85% 50%; }
+}
+
+@keyframes orb-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes orb-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+}
+
+body:has(.mic-button.listening) .jarvis-circle {
+    animation: orb-breathe 1.2s ease-in-out infinite;
+    box-shadow:
+        0 0 90px rgba(114, 176, 29, 0.7),
+        0 0 170px rgba(63, 125, 32, 0.4);
+}
+
+body:has(.mic-button.listening) .jarvis-circle::before {
+    animation-duration: 1.4s, 4s;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    max-width: 780px;
+    margin: 0 auto 18px;
+    animation: msg-in 0.22s ease-out;
+}
+
+@keyframes msg-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.assistant {
+    justify-content: flex-start;
+}
+
+.message.assistant::before {
+    content: "";
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 25%, #d5f59a 0%, var(--lime) 30%, var(--green) 65%, var(--onyx) 100%);
+    box-shadow: 0 0 16px rgba(114, 176, 29, 0.5);
+}
+
+.message-content {
+    max-width: 80%;
+    padding: 14px 19px;
+    font-size: 16px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.assistant .message-content {
+    background: var(--charcoal);
+    color: var(--mist);
+    border-radius: 6px 20px 20px 20px;
+}
+
+.user .message-content {
+    background: var(--lime);
+    color: var(--onyx);
+    font-weight: 600;
+    border-radius: 20px 6px 20px 20px;
+}
+
+.input-area {
+    padding: 22px 24px 20px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid rgba(114, 176, 29, 0.35);
+    border-radius: 999px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box:focus-within {
+    border-color: var(--lime);
+    box-shadow:
+        0 0 26px rgba(114, 176, 29, 0.28),
+        0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+.input-box input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 14px;
+    font-family: var(--font);
+    font-size: 16px;
+    color: var(--mist);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.input-box input::placeholder {
+    color: #7d818f;
+}
+
+.mic-button,
+.send-button {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 19px;
+    transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+}
+
+.mic-button {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+}
+
+.mic-button:hover {
+    background: var(--charcoal);
+}
+
+.send-button {
+    color: var(--onyx);
+    font-weight: 800;
+    background: var(--lime);
+}
+
+.send-button:hover {
+    background: #85c72a;
+    box-shadow: 0 0 22px rgba(114, 176, 29, 0.55);
+}
+
+.send-button:active,
+.mic-button:active {
+    transform: scale(0.93);
+}
+
+.mic-button.listening {
+    background: rgba(114, 176, 29, 0.2);
+    border-color: var(--lime);
+    animation: listen 1.1s infinite;
+}
+
+@keyframes listen {
+    0%   { box-shadow: 0 0 0 0 rgba(114, 176, 29, 0.6); }
+    70%  { box-shadow: 0 0 0 13px rgba(114, 176, 29, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(114, 176, 29, 0); }
+}
+
+.footer-text {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 12px;
+    color: #7d818f;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--lime);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .chat {
+        padding: 22px 14px 8px;
+    }
+
+    .message.assistant::before {
+        flex-basis: 28px;
+        width: 28px;
+        height: 28px;
+        margin-right: 9px;
+    }
+
+    .message-content {
+        max-width: 86%;
+        font-size: 15.5px;
+        padding: 12px 16px;
+    }
+
+    .input-area {
+        padding: 16px 12px 14px;
+    }
+
+    .mic-button,
+    .send-button {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+
+/* =========================================================
+   AELYRA OPTIONS PANEL
+   ========================================================= */
+
+.options-button {
+    position: fixed;
+    top: 18px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px;
+    color: var(--mist);
+    background: rgba(23, 26, 32, 0.92);
+    border: 1px solid rgba(114, 176, 29, 0.45);
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.options-button:hover {
+    color: var(--lime);
+    border-color: var(--lime);
+    box-shadow:
+        0 0 20px rgba(114, 176, 29, 0.3),
+        0 8px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+}
+
+.options-icon {
+    font-size: 19px;
+}
+
+.options-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.options-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10001;
+    width: min(390px, 92vw);
+    height: 100vh;
+    height: 100dvh;
+    padding: 25px;
+    overflow-y: auto;
+    background:
+        radial-gradient(
+            ellipse 90% 40% at 50% 0%,
+            rgba(114, 176, 29, 0.13),
+            transparent 70%
+        ),
+        var(--surface);
+    border-left: 1px solid rgba(114, 176, 29, 0.35);
+    box-shadow:
+        -20px 0 60px rgba(0, 0, 0, 0.6);
+    transform: translateX(105%);
+    transition:
+        transform 0.3s cubic-bezier(.2, .8, .2, 1);
+}
+
+body.options-open .options-panel {
+    transform: translateX(0);
+}
+
+body.options-open .options-backdrop {
+    opacity: 1;
+    visibility: visible;
+}
+
+.options-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.options-kicker {
+    display: block;
+    color: var(--lime);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+.options-panel-header h3 {
+    margin-top: 4px;
+    color: var(--mist);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.close-options {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mist);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close-options:hover {
+    color: var(--lime);
+    border-color: var(--lime);
+    box-shadow: 0 0 15px rgba(114, 176, 29, 0.25);
+}
+
+.options-subtitle {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.tool-card {
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 15px;
+    color: var(--mist);
+    background: rgba(32, 36, 44, 0.9);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    font-family: var(--font);
+    text-align: left;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-2px);
+    background: rgba(69, 73, 85, 0.75);
+    border-color: rgba(114, 176, 29, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.tool-card:active {
+    transform: scale(0.97);
+}
+
+.tool-icon {
+    margin-bottom: 9px;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.tool-name {
+    color: var(--mist);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.tool-description {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.tool-result {
+    margin-top: 16px;
+    padding: 15px;
+    color: var(--mist);
+    background: rgba(13, 10, 11, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .options-button {
+        top: 12px;
+        right: 12px;
+        padding: 8px 12px;
+    }
+
+    .options-panel {
+        width: min(390px, 94vw);
+        padding: 20px 16px;
+    }
+
+    .tool-grid {
+        gap: 8px;
+    }
+
+    .tool-card {
+        min-height: 102px;
+        padding: 13px;
+    }
+}
+
+
+/* =========================================================
+   CODE BLOCKS IN REPLIES
+   ========================================================= */
+
+.message-content pre {
+    margin: 10px 0 2px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    white-space: pre;
+    background: rgba(13, 10, 11, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.message-content code {
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 0.9em;
+}
+
+.message-content :not(pre) > code {
+    padding: 2px 6px;
+    background: rgba(13, 10, 11, 0.55);
+    border-radius: 6px;
+}

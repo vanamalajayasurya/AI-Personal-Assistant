@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aelyra AI Personal Assistant</title>
+
+    <!-- Aelyra CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- =========================
+             HEADER
+             ========================= -->
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="logo">
+                    A
+                </div>
+
+                <div>
+                    <h1>Aelyra</h1>
+                    <p>AI Personal Assistant</p>
+                </div>
+
+            </div>
+
+            <div class="status">
+                <span></span>
+                Online
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             OPTIONS BUTTON
+             ========================= -->
+        <button
+            id="optionsButton"
+            class="options-button"
+            type="button"
+            title="Aelyra Options"
+            aria-label="Open Aelyra Options">
+
+            <span class="options-icon">☷</span>
+            <span>Options</span>
+
+        </button>
+
+
+        <!-- =========================
+             CHAT
+             ========================= -->
+        <main id="chat" class="chat">
+
+            <div class="welcome">
+
+                <div class="jarvis-circle">
+                    A
+                </div>
+
+                <h2>
+                    Hello, I'm Aelyra
+                </h2>
+
+                <p>
+                    Your local AI personal assistant powered by Ollama.
+                </p>
+
+            </div>
+
+        </main>
+
+
+        <!-- =========================
+             INPUT AREA
+             ========================= -->
+        <footer class="input-area">
+
+            <div class="input-box">
+
+                <!-- MICROPHONE -->
+                <button
+                    id="micButton"
+                    class="mic-button"
+                    type="button"
+                    title="Voice input"
+                    aria-label="Voice input">
+
+                    🎤
+
+                </button>
+
+
+                <!-- MESSAGE -->
+                <input
+                    id="message"
+                    type="text"
+                    placeholder="Ask Aelyra anything..."
+                    autocomplete="off"
+                    aria-label="Message Aelyra">
+
+
+                <!-- SEND -->
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    type="button"
+                    title="Send message"
+                    aria-label="Send message">
+
+                    ➤
+
+                </button>
+
+            </div>
+
+            <p id="footerText" class="footer-text">
+                Powered by Ollama • llama3.2:3b
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =========================
+         OPTIONS BACKDROP
+         ========================= -->
+    <div
+        id="optionsBackdrop"
+        class="options-backdrop">
+    </div>
+
+
+    <!-- =========================
+         OPTIONS PANEL
+         ========================= -->
+    <aside
+        id="optionsPanel"
+        class="options-panel"
+        aria-hidden="true"
+        inert>
+
+        <!-- PANEL HEADER -->
+        <div class="options-panel-header">
+
+            <div>
+
+                <span class="options-kicker">
+                    AELYRA
+                </span>
+
+                <h3>
+                    Options
+                </h3>
+
+            </div>
+
+            <button
+                id="closeOptions"
+                class="close-options"
+                type="button"
+                title="Close Options"
+                aria-label="Close Options">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+        <p class="options-subtitle">
+            Access Aelyra's tools without changing
+            the main assistant screen.
+        </p>
+
+
+        <!-- =========================
+             TOOLS
+             ========================= -->
+        <div class="tool-grid">
+
+
+            <!-- MEMORY -->
+            <button
+                class="tool-card"
+                data-tool="memory"
+                type="button">
+
+                <span class="tool-icon">🧠</span>
+
+                <span class="tool-name">
+                    Memory
+                </span>
+
+                <span class="tool-description">
+                    View saved memories
+                </span>
+
+            </button>
+
+
+            <!-- WEB SEARCH -->
+            <button
+                class="tool-card"
+                data-tool="web"
+                type="button">
+
+                <span class="tool-icon">🌐</span>
+
+                <span class="tool-name">
+                    Web Search
+                </span>
+
+                <span class="tool-description">
+                    Search the web
+                </span>
+
+            </button>
+
+
+            <!-- TASKS -->
+            <button
+                class="tool-card"
+                data-tool="tasks"
+                type="button">
+
+                <span class="tool-icon">✅</span>
+
+                <span class="tool-name">
+                    Tasks
+                </span>
+
+                <span class="tool-description">
+                    View your tasks
+                </span>
+
+            </button>
+
+
+            <!-- NOTES -->
+            <button
+                class="tool-card"
+                data-tool="notes"
+                type="button">
+
+                <span class="tool-icon">📝</span>
+
+                <span class="tool-name">
+                    Notes
+                </span>
+
+                <span class="tool-description">
+                    View saved notes
+                </span>
+
+            </button>
+
+
+            <!-- REMINDERS -->
+            <button
+                class="tool-card"
+                data-tool="reminders"
+                type="button">
+
+                <span class="tool-icon">⏰</span>
+
+                <span class="tool-name">
+                    Reminders
+                </span>
+
+                <span class="tool-description">
+                    View saved reminders
+                </span>
+
+            </button>
+
+
+            <!-- COMPUTER -->
+            <button
+                class="tool-card"
+                data-tool="computer"
+                type="button">
+
+                <span class="tool-icon">💻</span>
+
+                <span class="tool-name">
+                    Computer
+                </span>
+
+                <span class="tool-description">
+                    Open allowed tools
+                </span>
+
+            </button>
+
+
+            <!-- CALCULATOR -->
+            <button
+                class="tool-card"
+                data-tool="calculator"
+                type="button">
+
+                <span class="tool-icon">🧮</span>
+
+                <span class="tool-name">
+                    Calculator
+                </span>
+
+                <span class="tool-description">
+                    Calculate something
+                </span>
+
+            </button>
+
+
+            <!-- DASHBOARD -->
+            <button
+                class="tool-card"
+                data-tool="dashboard"
+                type="button">
+
+                <span class="tool-icon">📊</span>
+
+                <span class="tool-name">
+                    Dashboard
+                </span>
+
+                <span class="tool-description">
+                    See Aelyra status
+                </span>
+
+            </button>
+
+
+            <!-- VOICE -->
+            <button
+                class="tool-card"
+                data-tool="voice"
+                type="button">
+
+                <span class="tool-icon">🔊</span>
+
+                <span class="tool-name">
+                    Voice
+                </span>
+
+                <span class="tool-description">
+                    Spoken replies: on
+                </span>
+
+            </button>
+
+
+            <!-- CLEAR CHAT -->
+            <button
+                class="tool-card"
+                data-tool="clear"
+                type="button">
+
+                <span class="tool-icon">🧹</span>
+
+                <span class="tool-name">
+                    Clear Chat
+                </span>
+
+                <span class="tool-description">
+                    Start a fresh conversation
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             TOOL RESULT
+             ========================= -->
+        <div
+            id="toolResult"
+            class="tool-result"
+            hidden>
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
+    <!-- IMPORTANT:
+         Flask serves this from /static/script.js
+    -->
+    <script src="/static/script.js" defer></script>
+
+</body>
+
+</html>
